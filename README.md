@@ -1,10 +1,90 @@
-# Manage your education and skills funding - Audit API
+# Manage Your Education and Skills Funding Audit API
 
-## Introduction
+The Manage Your Education and Skills Funding (MYESF) Audit API is used by the MYESF web application to allow the following:
 
-Audit API provides a single shared service to audit events in "Manage your education and skills funding". This is a BETA version and is currently used only by a limited number of components.
+- Provides a single shared service to audit events.
+- Secure logging service that captures and records system events directly into a database table.
+- Maintains an immutable, queryable history required to satisfy operational auditing, and regulatory compliance standards.
 
-### Getting Started
+## Provider
 
-This is a self-contained Visual Studio 2019 solution containing a number of projects (web application, service and repository layers, with associated unit test and integration test projects).
-To run this product locally, you will need to configure the list of dependencies, once configured and the configuration files updated, it should be F5 to run and debug locally.
+[The Department for Education](https://www.gov.uk/government/organisations/department-for-education)
+
+## About this project
+
+This project is an ASP.NET Core 8 web application utilising Azure App Service for deployment.
+
+The web application runs on an Azure App service on Azure.
+
+**Note:** The project is currently being updated to be containerised via Docker where the deployment method and target will change, this document will be updated when these changes have been finalised.
+
+# Local Configuration Guide
+
+In order to run the application locally a valid `appsettings.json` file will need to be created in the `Pds.DocumentExchange.Web` project. Below, and included in the repo, there is `appsettings.example.json` which can be used as a base and populated with the required values, which can be retrieved from the Azure Portal.
+
+## Application Settings (`appsettings.json`)
+
+```json
+{
+  "PdsApplicationInsights": {
+    "InstrumentationKey": "[app insights instrumentation key]",
+    "Environment": "LocalDevelopment"
+  },
+  "Logging": {
+    "ApplicationInsights": {
+      "LogLevel": {
+        "Default": "Information",
+        "Microsoft": "Error"
+      }
+    },
+    "LogLevel": {
+      "Default": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "AzureAd": {
+    "Audience": "",
+    "ClientId": "",
+    "Instance": "https://login.microsoftonline.com/",
+    "TenantId": ""
+  },
+  "ConnectionStrings": {
+    "audit": "Server=(local);Database=Test;Trusted_Connection=True;TrustServerCertificate=true;"
+  }
+}
+```
+
+### Setting Details
+
+- **`PdsApplicationInsights:InstrumentationKey`**  
+  The key value for Application Insights resource for logging purposes.
+
+- **`PdsApplicationInsights:Environment`**  
+  The environment which the app is running on for Application Insights for logging purposes.
+
+- **`Logging:ApplicationInsights:LogLevel:Default`**
+  The default logging level for the service when logging to Application Insights; refer to the [Microsoft Documentation](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.loglevel?view=net-9.0-pp) for an explanation of the different levels.
+
+- **`Logging:ApplicationInsights:LogLevel:Microsoft`**
+  The default logging level for Microsoft specific information when logging to Application Insights; refer to the [Microsoft Documentation](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.loglevel?view=net-9.0-pp) for an explanation of the different levels.
+
+- **`Logging:LogLevel:Default`**
+  The default logging level for the service; refer to the [Microsoft Documentation](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.loglevel?view=net-9.0-pp) for an explanation of the different levels.
+
+- **`AllowedHosts`** 
+  The configuration setting used by web frameworks and development tools to restrict incoming HTTP requests based on the HTTP Host header. It serves as a shield against HTTP Host header attacks and DNS rebinding exploits.
+
+- **`AzureAd:Audience`**  
+  The intended recipient of the azure authentication token.
+ 
+- **`AzureAd:ClientId`**  
+  The application (client) ID registered in azure ad.
+
+- **`AzureAd:Instance`**  
+  The URL of the azure ad service used to authenticate.
+
+- **`AzureAd:TenantId`**  
+  The unique identifier for your azure ad tenant.
+
+- **`ConnectionStrings:audit`**  
+  The database connection configuration used exclusively to route security logs, user activities, and data change histories to an audit repository.
