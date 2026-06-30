@@ -20,7 +20,7 @@ The web application runs on an Azure App service on Azure.
 
 # Local Configuration Guide
 
-In order to run the application locally a valid `appsettings.json` file will need to be created in the `Pds.DocumentExchange.Web` project. Below, and included in the repo, there is `appsettings.example.json` which can be used as a base and populated with the required values, which can be retrieved from the Azure Portal.
+In order to run the application locally a valid `appsettings.json` file will need to be created in the `Pds.Shared.Audit.Api` project. Below, and included in the repo, there is `appsettings.example.json` which can be used as a base and populated with the required values, which can be retrieved from the Azure Portal.
 
 ## Application Settings (`appsettings.json`)
 
