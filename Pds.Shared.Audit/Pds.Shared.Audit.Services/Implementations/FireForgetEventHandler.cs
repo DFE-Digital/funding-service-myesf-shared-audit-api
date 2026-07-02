@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Pds.Core.Logging;
 using Pds.Shared.Audit.Services.Interfaces;
 using System;
 using System.Threading.Tasks;

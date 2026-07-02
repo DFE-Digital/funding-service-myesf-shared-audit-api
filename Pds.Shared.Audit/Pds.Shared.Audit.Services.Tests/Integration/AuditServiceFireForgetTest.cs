@@ -1,14 +1,10 @@
-﻿using AutoMapper;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Pds.Shared.Audit.Repository.Implementations;
 using Pds.Shared.Audit.Repository.Interfaces;
-using Pds.Shared.Audit.Services.AutoMapperProfiles;
 using Pds.Shared.Audit.Services.Implementations;
 using Pds.Shared.Audit.Services.Interfaces;
 using Pds.Shared.Audit.Services.Tests.Helper;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using ServiceModel = Pds.Shared.Audit.Services.Models;

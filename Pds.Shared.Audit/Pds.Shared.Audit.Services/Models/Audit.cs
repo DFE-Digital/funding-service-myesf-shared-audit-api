@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Json.Serialization;
-using DataModel = Pds.Shared.Audit.Repository.DataModels;
+﻿using System.ComponentModel.DataAnnotations;
 using DataModelInterfaces = Pds.Shared.Audit.Repository.Interfaces;
 
 namespace Pds.Shared.Audit.Services.Models

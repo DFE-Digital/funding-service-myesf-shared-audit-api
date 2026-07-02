@@ -27,8 +27,8 @@ In order to run the application locally a valid `appsettings.json` file will nee
 ```json
 {
   "PdsApplicationInsights": {
-    "InstrumentationKey": "[app insights instrumentation key]",
-    "Environment": "LocalDevelopment"
+    "InstrumentationKey": "",
+    "Environment": "local"
   },
   "Logging": {
     "ApplicationInsights": {
@@ -49,7 +49,7 @@ In order to run the application locally a valid `appsettings.json` file will nee
     "TenantId": ""
   },
   "ConnectionStrings": {
-    "audit": "Server=(local);Database=Test;Trusted_Connection=True;TrustServerCertificate=true;"
+    "audit": ""
   }
 }
 ```

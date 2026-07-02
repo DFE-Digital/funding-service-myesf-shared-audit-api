@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pds.Shared.Audit.Repository.Context;
-using Pds.Shared.Audit.Repository.DependencyInjection;
 using Pds.Shared.Audit.Repository.Implementations;
 using Pds.Shared.Audit.Repository.Interfaces;
 using Pds.Shared.Audit.Services.AutoMapperProfiles;

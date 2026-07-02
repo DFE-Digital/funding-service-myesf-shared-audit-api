@@ -1,14 +1,6 @@
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using Newtonsoft.Json;
-using Pds.Core.Logging;
-using Pds.Shared.Audit.Api.Controllers;
-using Pds.Shared.Audit.Services.Implementations;
-using Pds.Shared.Audit.Services.Interfaces;
-using System;
 using System.Net;
 using System.Net.Http;
 using System.Text;

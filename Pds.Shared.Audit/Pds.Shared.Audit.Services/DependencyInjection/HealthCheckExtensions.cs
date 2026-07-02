@@ -1,8 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Pds.Shared.Audit.Repository.Context;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Pds.Shared.Audit.Services.DependencyInjection
 {

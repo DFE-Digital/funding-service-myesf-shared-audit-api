@@ -112,7 +112,7 @@ namespace Pds.Shared.Audit.Api
 
             services.AddAuthorization(options =>
             {
-                 options.AddPolicy(RequireElevatedRightsPolicyName, policy => policy.RequireRole(Roles));
+                options.AddPolicy(RequireElevatedRightsPolicyName, policy => policy.RequireRole(Roles));
             });
         }
 

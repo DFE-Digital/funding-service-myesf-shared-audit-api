@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using DataModel = Pds.Shared.Audit.Repository.DataModels;
+﻿using DataModel = Pds.Shared.Audit.Repository.DataModels;
 
 namespace Pds.Shared.Audit.Repository.Interfaces
 {
