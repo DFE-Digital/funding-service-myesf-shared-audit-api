@@ -88,3 +88,14 @@ In order to run the application locally a valid `appsettings.json` file will nee
 
 - **`ConnectionStrings:audit`**  
   The database connection configuration used exclusively to route security logs, user activities, and data change histories to an audit repository.
+
+## Build and Test
+
+To build and test locally, you can either use Visual Studio, Visual Studio Code or simply use dotnet CLI `dotnet build` and `dotnet test` more information in dotnet CLI can be found at <https://docs.microsoft.com/en-us/dotnet/core/tools/>.
+
+## Contribute
+
+To contribute,
+
+- If you are part of the team then create a branch for changes and then submit your changes for review by creating a pull request.
+- If you are external to the organisation then fork this repository and make necessary changes and then submit your changes for review by creating a pull request.
