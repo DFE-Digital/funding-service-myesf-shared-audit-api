@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Pds.Shared.Audit.Repository.Context;
 using Pds.Shared.Audit.Repository.Implementations;
 using Pds.Shared.Audit.Repository.Interfaces;
-using Pds.Shared.Audit.Services.AutoMapperProfiles;
 using Pds.Shared.Audit.Services.Implementations;
 using Pds.Shared.Audit.Services.Interfaces;
 using System;
@@ -28,14 +26,6 @@ namespace Pds.Shared.Audit.Services.Tests.Helper
         internal static IServiceProvider GetServiceProvider()
         {
             var services = new ServiceCollection();
-
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new AuditMapperProfile());
-            });
-
-            IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
 
             services.AddScoped<IAuditRepository, AuditRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

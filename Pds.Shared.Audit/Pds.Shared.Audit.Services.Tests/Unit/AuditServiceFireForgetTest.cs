@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Pds.Core.Logging;
 using Pds.Shared.Audit.Repository.Interfaces;
@@ -21,8 +20,6 @@ namespace Pds.Shared.Audit.Services.Tests.Unit
     {
         #region Variables
 
-        private Mock<IMapper> _mockMapper;
-
         private Mock<IUnitOfWork> _unitOfWorkMock;
 
         private Mock<IAuditRepository> _auditRepositoryMock;
@@ -38,8 +35,6 @@ namespace Pds.Shared.Audit.Services.Tests.Unit
         public void TestInitialize()
         {
             _dmAudit = new DataModel.Audit() { Action = 5, Message = "Test", Severity = 1, Ukprn = 12345 };
-            _mockMapper = new Mock<IMapper>(MockBehavior.Strict);
-            _mockMapper.Setup(x => x.Map<ServiceModel.Audit, DataModel.Audit>(It.IsAny<ServiceModel.Audit>())).Returns(_dmAudit);
 
             _auditRepositoryMock = new Mock<IAuditRepository>();
             _unitOfWorkMock = new Mock<IUnitOfWork>();

@@ -1,8 +1,6 @@
-using AutoMapper;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Pds.Shared.Audit.Repository.Implementations;
-using Pds.Shared.Audit.Services.AutoMapperProfiles;
 using Pds.Shared.Audit.Services.Implementations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,8 +15,6 @@ namespace Pds.Shared.Audit.Services.Tests.Integration
         #region Variables
 
         private UnitOfWork _uow = null;
-
-        private IMapper _mapper = null;
 
         private ServiceModel.Audit _serviceAudit = new ServiceModel.Audit()
         {
@@ -39,12 +35,11 @@ namespace Pds.Shared.Audit.Services.Tests.Integration
         {
             // Arrrange
             string textMessage = "Log from audit service create async interation test";
-            SetMapperHelper();
             using (var pdsContext = Pds.Shared.Audit.Services.Tests.Helper.SetUpHelper.GetInMemoryPdsDbContext())
             {
                 var auditRepository = new AuditRepository(pdsContext);
                 _uow = new UnitOfWork(pdsContext, auditRepository);
-                var auditService = new AuditService(_uow, _mapper);
+                var auditService = new AuditService(_uow);
                 SetServiceAuditHelper(textMessage);
                 _serviceAudit.Ukprn = 01234567;
 
@@ -61,19 +56,6 @@ namespace Pds.Shared.Audit.Services.Tests.Integration
 
 
         #region Helpers
-
-        /// <summary>
-        /// Set the mapper config.
-        /// </summary>
-        private void SetMapperHelper()
-        {
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new AuditMapperProfile());
-            });
-
-            _mapper = mapperConfig.CreateMapper();
-        }
 
         /// <summary>
         /// Set service Audit model.

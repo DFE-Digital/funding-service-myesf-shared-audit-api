@@ -1,4 +1,3 @@
-using AutoMapper;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -21,13 +20,9 @@ namespace Pds.Shared.Audit.Services.Tests.Unit
     {
         #region Variables
 
-        private Mock<IMapper> _mockMapper;
-
         private Mock<IUnitOfWork> _unitOfWorkMock;
 
         private Mock<IAuditRepository> _auditRepositoryMock;
-
-        private DataModel.Audit _dmAudit;
 
         #endregion Variables
 
@@ -37,10 +32,6 @@ namespace Pds.Shared.Audit.Services.Tests.Unit
         [TestInitialize]
         public void TestInitialize()
         {
-            _dmAudit = new DataModel.Audit() { Action = 5, Message = "Test", Severity = 1, Ukprn = 12345 };
-            _mockMapper = new Mock<IMapper>(MockBehavior.Strict);
-            _mockMapper.Setup(x => x.Map<ServiceModel.Audit, DataModel.Audit>(It.IsAny<ServiceModel.Audit>())).Returns(_dmAudit);
-
             _auditRepositoryMock = new Mock<IAuditRepository>(MockBehavior.Strict);
             _unitOfWorkMock = new Mock<IUnitOfWork>(MockBehavior.Strict);
         }
@@ -75,7 +66,7 @@ namespace Pds.Shared.Audit.Services.Tests.Unit
         public async Task CreateAsync_ShouldCreateAudit()
         {
             // Arrrange
-            _auditRepositoryMock.Setup(m => m.AddAsync(_dmAudit)).Returns(Task.CompletedTask);
+            _auditRepositoryMock.Setup(m => m.AddAsync(It.Is<DataModel.Audit>(a => a.Action == 5 && a.Message == "Test" && a.Severity == 1 && a.Ukprn == 12345))).Returns(Task.CompletedTask);
             _unitOfWorkMock.Setup(m => m.AuditRepository).Returns(_auditRepositoryMock.Object);
             _unitOfWorkMock.Setup(m => m.CommitAsync()).Returns(Task.CompletedTask);
             var smAudit = new ServiceModel.Audit() { Action = 5, Message = "Test", Severity = 1, Ukprn = 12345 };
@@ -86,9 +77,8 @@ namespace Pds.Shared.Audit.Services.Tests.Unit
 
             //Assert
             _auditRepositoryMock.Verify();
-            _auditRepositoryMock.Verify(x => x.AddAsync(_dmAudit), Times.Once);
+            _auditRepositoryMock.Verify(x => x.AddAsync(It.Is<DataModel.Audit>(a => a.Action == 5 && a.Message == "Test" && a.Severity == 1 && a.Ukprn == 12345)), Times.Once);
             _unitOfWorkMock.Verify(x => x.CommitAsync(), Times.Once);
-            Mock.VerifyAll(_mockMapper);
         }
 
         #endregion Unit Tests
@@ -102,7 +92,7 @@ namespace Pds.Shared.Audit.Services.Tests.Unit
         /// <returns>Returns audit service.</returns>
         private IAuditService GetAuditServiceHelper()
         {
-            return new AuditService(_unitOfWorkMock.Object, _mockMapper.Object);
+            return new AuditService(_unitOfWorkMock.Object);
         }
 
         #endregion Helpers
