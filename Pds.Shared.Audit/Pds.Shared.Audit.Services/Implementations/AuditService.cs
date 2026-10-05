@@ -4,7 +4,6 @@ using Pds.Shared.Audit.Services.Extensions;
 using Pds.Shared.Audit.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
-using DataModel = Pds.Shared.Audit.Repository.DataModels;
 using ServiceModel = Pds.Shared.Audit.Services.Models;
 
 namespace Pds.Shared.Audit.Services.Implementations
