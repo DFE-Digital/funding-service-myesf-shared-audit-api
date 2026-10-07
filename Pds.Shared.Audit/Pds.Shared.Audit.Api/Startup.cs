@@ -4,13 +4,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Pds.Core.ApiAuthentication;
 using Pds.Core.Logging;
 using Pds.Core.Telemetry.ApplicationInsights;
 using Pds.Shared.Audit.Api.MvcConfiguration;
 using Pds.Shared.Audit.Services.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Pds.Shared.Audit.Api
@@ -78,6 +79,8 @@ namespace Pds.Shared.Audit.Api
             {
                 c.SwaggerDoc(CurrentApiVersion, new OpenApiInfo { Title = AssemblyName, Version = CurrentApiVersion });
 
+                const string schemeId = JwtBearerDefaults.AuthenticationScheme;
+
                 var securityScheme = new OpenApiSecurityScheme
                 {
                     Name = "JWT Authentication",
@@ -85,18 +88,13 @@ namespace Pds.Shared.Audit.Api
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
                     Scheme = "bearer", // must be lower case
-                    BearerFormat = "JWT",
-                    Reference = new OpenApiReference
-                    {
-                        Id = JwtBearerDefaults.AuthenticationScheme,
-                        Type = ReferenceType.SecurityScheme
-                    }
+                    BearerFormat = "JWT"
                 };
-                c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                        {
-                            { securityScheme, new string[] { } }
-                        });
+                c.AddSecurityDefinition(schemeId, securityScheme);
+                c.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+                {
+                    [new OpenApiSecuritySchemeReference(schemeId, document)] = new List<string>()
+                });
 
                 string xmlDocFilePath = Path.Combine(Path.GetFullPath(AppContext.BaseDirectory), $"{AssemblyName}.xml");
                 c.IncludeXmlComments(xmlDocFilePath, true);
